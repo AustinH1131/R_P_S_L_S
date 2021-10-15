@@ -1,3 +1,4 @@
+import random
 from Player import Player
 
 class AI(Player):
@@ -5,3 +6,7 @@ class AI(Player):
         pass
 
     player3="Computer"
+    
+    def list_selector(self):
+        pass
+   
