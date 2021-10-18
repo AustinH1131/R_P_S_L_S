@@ -3,7 +3,7 @@ from Ai import AI
 import random
 
 class Game:
-    def __init__(self,):
+    def __init__(self):
         self.player1 = Human()
         self.player2 = Human()
         self.player3 = AI()
@@ -63,12 +63,12 @@ class Game:
                 return 
                 
             if  player1wins==2:
+                print(player1wins,"/",player3wins)
                 winner=True
             elif player3wins==2:
+                print(player1wins,"/",player3wins)
                 winner=True
             
-
-
 
         multi=input(" ").upper
         if multi=="MULTIPLAYER":
@@ -109,8 +109,10 @@ class Game:
                 return 
             
             if  player1wins==2:
+                print(player1wins,"/",player2wins)
                 winner=True
             elif player2wins==2:
+                print(player1wins,"/",player2wins)
                 winner=True
 
     def select_gesture(self,singlep):
@@ -118,21 +120,24 @@ class Game:
              print("Choose one of the following: ")
              print(self.gestures) 
              player1_gesture = input(" ")
+             player1_gesture
              player2_gesture = input(" ")
-
+             player2_gesture
         elif singlep==True:  
             print("Choose one of the following: ")
             print(self.gestures) 
             player1_gesture = input(" ")
             player3_gesture = random.choice(self.gestures)
-       
-
-    def game_winner(self):
-        pass
-
-    def scoreboard(self):
+            player3_gesture    
+    def game_winner(self,):  
         player1wins=0
         player2wins=0
         player3wins=0
+        if player1wins==2:
+            print(self.player1,"Wins!")
+        if player2wins==2:
+            print(self.player2,"Wins!")   
+        if player3wins==2:
+            print(self.player3,"Wins!") 
         
 
