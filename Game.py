@@ -4,11 +4,18 @@ import random
 
 class Game:
     def __init__(self):
-        self.player1 = Human()
+        self.player1 = None
         self.player2 = Human()
-        self.player3 = AI()
-        self.gestures=["Rock","Paper","Scissors","Lizard","Spock"]
+        self.player2.select_gesture()
         self.winner=False
+
+
+    def run(self):
+        self.display_greeting()
+        self.choose_game_mode()
+        self.play_game()
+        self.game_winner()
+
     def display_greeting(self):
         print("Welcome to Rock Paper Scissors Lizard Spock!")
         print(" ")
@@ -21,121 +28,65 @@ class Game:
         print(" ")
         print("Winner will be determined by a best of 3.")
 
-    def play_game(self):
-        print("Choose Single player or Multiplayer")
-        singlep=input(" ").upper()
-        if singlep=="SINGLE PLAYER":
-            singlep=True
-            while self.winner==False:
-                self.select_gesture(True)
-                if self.player1.selected_gesture=="Rock" and (self.player3.selected_gesture=="Lizard" or self.player3.selected_gesture=="Scissor"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player3.selected_gesture=="Rock" and (self.player1.selected_gesture=="Lizard" or self.player1.selected_gesture=="Scissor"):
-                    print(self.player3.selected_gesture)
-                    self.player3.wins+=1
-                elif self.player1.selected_gesture=="Paper" and (self.player3.selected_gesture=="Rock" or self.player3.selected_gesture=="Spock"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player3.selected_gesture=="Paper" and (self.player1.selected_gesture=="Rock" or self.player1.selected_gesture=="Spock"):
-                    print(self.player3.selected_gesture)
-                    self.player3.wins+=1
-                elif self.player1.selected_gesture=="Scissors" and (self.player3.selected_gesture=="Paper" or self.player3.selected_gesture=="Lizard"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player3.selected_gesture=="Scissors" and (self.player1.selected_gesture=="Paper" or self.player1.selected_gesture=="Lizard"):
-                    print(self.player3.selected_gesture)
-                    self.player3.wins+=1   
-                elif self.player1.selected_gesture=="Lizard" and (self.player3.selected_gesture=="Paper" or self.player3.selected_gesture=="Spock"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player3.selected_gesture=="Lizard" and (self.player1.selected_gesture=="Paper" or self.player1.selected_gesture=="Spock"):
-                    print(self.player3.selected_gesture)
-                    self.player3.wins+=1
-                elif self.player1.selected_gesture=="Spock" and (self.player3.selected_gesture=="Rock" or self.player3.selected_gesture=="Scissors"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player3.selected_gesture=="Spock" and (self.player1.selected_gesture=="Rock" or self.player1.selected_gesture=="Scissors"):
-                    print(self.player3.selected_gesture)
-                    self.player3.wins+=1
-                elif self.player1.selected_gesture==self.player3.selected_gesture:
-                    print("Draw! Rematch!")
-            
-                 
-                    
-                if  self.player1.wins==2:
-                    print(self.player1.wins,"/",self.player3.wins)
-                    self.winner=True
-                elif self.player3.wins==2:
-                    print(self.player1.wins,"/",self.player3.wins)
-                    self.winner=True
-            
+    def choose_game_mode(self):
+        user_input = input('Please enter 1 for single player and 2 for multiplayer: ')
+        if user_input == '1':
+            self.player1 = Human()
+            self.player2 = AI()
+        elif user_input == '2':
+            self.player1 = Human()
+            self.player2 = Human()
 
-      
-        elif singlep=="MULTIPLAYER":
-            self.winner=False
-            while self.winner==False:
-                self.select_gesture(False)
-                if self.player1.selected_gesture=="Rock" and (self.player2.selected_gesture=="Lizard" or self.player2.selected_gesture=="Scissors"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player2.selected_gesture=="Rock" and (self.player1.selected_gesture=="Lizard" or self.player1.selected_gesture=="Scissors"):
-                    print(self.player2.selected_gesture)
-                    self.player2.wins+=1
-                elif self.player1.selected_gesture=="Paper" and (self.player2.selected_gesture=="Rock" or self.player2.selected_gesture=="Spock"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player2.selected_gesture=="Paper" and (self.player1.selected_gesture=="Rock" or self.player1.selected_gesture=="Spock"):
-                    print(self.player2.selected_gesture)
-                    self.player2.wins+=1
-                elif self.player1.selected_gesture=="Scissors" and (self.player2.selected_gesture=="Paper" or self.player2.selected_gesture=="Lizard"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player2.selected_gesture=="Scissors" and (self.player1.selected_gesture=="Paper" or self.player1.selected_gesture=="Lizard"):
-                    print(self.player2.selected_gesture)
-                    self.player2.wins+=1    
-                elif self.player1.selected_gesture=="Lizard" and (self.player2.selected_gesture=="Paper" or self.player2.selected_gesture=="Spock"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player2.selected_gesture=="Lizard" and (self.player1.selected_gesture=="Paper" or self.player1.selected_gesture=="Spock"):
-                    print(self.player2.selected_gesture)
-                    self.player2.wins+=1
-                elif self.player1.selected_gesture=="Spock" and (self.player2.selected_gesture=="Rock" or self.player2.selected_gesture=="Scissors"):
-                    print(self.player1.selected_gesture)
-                    self.player1.wins+=1
-                elif self.player2.selected_gesture=="Spock" and (self.player1.selected_gesture=="Rock" or self.player1.selected_gesture=="Scissors"):
-                    print(self.player2.selected_gesture)
-                    self.player2.wins+=1
-                elif self.player1.selected_gesture==self.player2.selected_gesture:
-                    print("Draw! Rematch!")
-                    
-                
-                if  self.player1.wins==2:
-                    print(self.player1.wins,"/",self.player2.wins)
-                    self.winner=True
-                elif self.player2.wins==2:
-                    print(self.player1.wins,"/",self.player2.wins)
-                    self.winner=True
-
-    def select_gesture(self,singlep):
-        if singlep==False:
-            print("Choose one of the following: ")
-            print(self.gestures) 
-            self.selected_gesture=" "
-            self.player1.selected_gesture = input("player1choice:  ").upper()
-            self.player2.selected_gesture = input("player2choice:  ").upper()
-            self.player2.selected_gesture
-            if (self.player1.selected_gesture or self.player2.selected_gestures) != self.gestures:
-                print("Pick Again") 
         
-        elif singlep==True:  
-            print("Choose one of the following: ")
-            print(self.gestures) 
-            self.player1.selected_gesture = input("player1choice:  ").upper()
-            self.player3.selected_gesture = random.choice(self.gestures)
-            self.player3.selected_gesture
-            if self.player1.selected_gesture != self.gestures:
-                print("Pick Again")   
+
+    def play_game(self):
+
+        self.winner=False
+        while self.winner==False:
+            self.player1.select_gesture()
+            self.player2.select_gesture()
+            if self.player1.selected_gesture=="Rock" and (self.player2.selected_gesture=="Lizard" or self.player2.selected_gesture=="Scissors"):
+                print(self.player1.selected_gesture)
+                self.player1.wins+=1
+            elif self.player2.selected_gesture=="Rock" and (self.player1.selected_gesture=="Lizard" or self.player1.selected_gesture=="Scissors"):
+                print(self.player2.selected_gesture)
+                self.player2.wins+=1
+            elif self.player1.selected_gesture=="Paper" and (self.player2.selected_gesture=="Rock" or self.player2.selected_gesture=="Spock"):
+                print(self.player1.selected_gesture)
+                self.player1.wins+=1
+            elif self.player2.selected_gesture=="Paper" and (self.player1.selected_gesture=="Rock" or self.player1.selected_gesture=="Spock"):
+                print(self.player2.selected_gesture)
+                self.player2.wins+=1
+            elif self.player1.selected_gesture=="Scissors" and (self.player2.selected_gesture=="Paper" or self.player2.selected_gesture=="Lizard"):
+                print(self.player1.selected_gesture)
+                self.player1.wins+=1
+            elif self.player2.selected_gesture=="Scissors" and (self.player1.selected_gesture=="Paper" or self.player1.selected_gesture=="Lizard"):
+                print(self.player2.selected_gesture)
+                self.player2.wins+=1    
+            elif self.player1.selected_gesture=="Lizard" and (self.player2.selected_gesture=="Paper" or self.player2.selected_gesture=="Spock"):
+                print(self.player1.selected_gesture)
+                self.player1.wins+=1
+            elif self.player2.selected_gesture=="Lizard" and (self.player1.selected_gesture=="Paper" or self.player1.selected_gesture=="Spock"):
+                print(self.player2.selected_gesture)
+                self.player2.wins+=1
+            elif self.player1.selected_gesture=="Spock" and (self.player2.selected_gesture=="Rock" or self.player2.selected_gesture=="Scissors"):
+                print(self.player1.selected_gesture)
+                self.player1.wins+=1
+            elif self.player2.selected_gesture=="Spock" and (self.player1.selected_gesture=="Rock" or self.player1.selected_gesture=="Scissors"):
+                print(self.player2.selected_gesture)
+                self.player2.wins+=1
+            elif self.player1.selected_gesture==self.player2.selected_gesture:
+                print("Draw! Rematch!")
+                
+            
+            if  self.player1.wins==2:
+                print(self.player1.wins,"/",self.player2.wins)
+                self.winner=True
+            elif self.player2.wins==2:
+                print(self.player1.wins,"/",self.player2.wins)
+                self.winner=True
+
+            
     
     def game_winner(self):  
         if self.player1.wins==2:
