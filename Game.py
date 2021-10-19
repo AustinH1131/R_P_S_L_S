@@ -21,7 +21,7 @@ class Game:
         print(" ")
         print("Winner will be determined by a best of 3.")
 
-    def play_game(self,):
+    def play_game(self):
         print("Choose Single player or Multiplayer")
         singlep=input(" ").upper()
         if singlep=="SINGLE PLAYER":
@@ -60,7 +60,8 @@ class Game:
                     self.player3.wins+=1
                 elif self.player1.selected_gesture==self.player3.selected_gesture:
                     print("Draw! Rematch!")
-                    return 
+            
+                 
                     
                 if  self.player1.wins==2:
                     print(self.player1.wins,"/",self.player3.wins)
@@ -107,7 +108,7 @@ class Game:
                     self.player2.wins+=1
                 elif self.player1.selected_gesture==self.player2.selected_gesture:
                     print("Draw! Rematch!")
-                    return 
+                    
                 
                 if  self.player1.wins==2:
                     print(self.player1.wins,"/",self.player2.wins)
@@ -121,18 +122,22 @@ class Game:
             print("Choose one of the following: ")
             print(self.gestures) 
             self.selected_gesture=" "
-            self.player1.selected_gesture = input(" ")
-             
-            self.player2.selected_gesture = input(" ")
+            self.player1.selected_gesture = input("player1choice:  ").upper()
+            self.player2.selected_gesture = input("player2choice:  ").upper()
             self.player2.selected_gesture
+            if (self.player1.selected_gesture or self.player2.selected_gestures) != self.gestures:
+                print("Pick Again") 
+        
         elif singlep==True:  
             print("Choose one of the following: ")
             print(self.gestures) 
-            self.player1.selected_gesture = input(" ")
+            self.player1.selected_gesture = input("player1choice:  ").upper()
             self.player3.selected_gesture = random.choice(self.gestures)
-            self.player3.selected_gesture    
+            self.player3.selected_gesture
+            if self.player1.selected_gesture != self.gestures:
+                print("Pick Again")   
     
-    def game_winner(self,):  
+    def game_winner(self):  
         if self.player1.wins==2:
             print(self.player1.name,"Wins!")
         if self.player2.wins==2:
